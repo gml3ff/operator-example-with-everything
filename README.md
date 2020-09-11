@@ -13,10 +13,20 @@ Inspiration came from [Ryan Hennessy's guide that you can find here](https://git
 
 ![download_crc](images/crc_download.png)
 
-3. Extract the archive and place the contents in a location that you can easily add to your `$PATH`. I extracted to `/usr/local/share/crc` using the following command. 
+3. Extract the archive and place the contents in a location that you can easily add to your `$PATH`. I extracted to `/usr/local/share/` using the following command. 
 
 ```
 [morgan.lupton@mycomputer:~/Downloads]$ tar -xvf crc-macos-amd64.tar.xz -C /usr/local/share/
 ```
 
+4. Add the path to the `crc` executable to your `$PATH` env var. Please keep in mind that the path name will depend on the version of crc you downloaded (in this case 1.14.0). 
 
+```
+[morgan.lupton@mycomputer:~/Downloads]$ export PATH="/usr/local/share/crc-macos-1.14.0-amd64/:$PATH"
+```
+
+Make sure to add this statement to your bash profile such that it persists after you exit out of the terminal. 
+
+```
+[morgan.lupton@mycomputer:~/Downloads]$ export PATH="/usr/local/share/crc-macos-1.14.0-amd64/:$PATH"
+```
