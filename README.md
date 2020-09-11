@@ -9,7 +9,7 @@ Inspiration came from [Ryan Hennessy's guide that you can find here](https://git
 
 1. Navigate to [Red Hat's CodeReady Containers product page](https://cloud.redhat.com/openshift/install/crc/installer-provisioned?intcmp=7013a000002CtetAAC). You will need to create a Red Hat account in order to access the page. 
 
-2. Once logged in, download the CodeReady Containers tarball archive. 
+2. Once logged in, download the CodeReady Containers tarball archive. Keep this page open, because you'll need the pull secret later on. 
 
 ![download_crc](images/crc_download.png)
 
@@ -22,11 +22,90 @@ Inspiration came from [Ryan Hennessy's guide that you can find here](https://git
 4. Add the path to the `crc` executable to your `$PATH` env var. Please keep in mind that the path name will depend on the version of crc you downloaded (in this case 1.14.0). 
 
 ```
-[morgan.lupton@mycomputer:~/Downloads]$ export PATH="/usr/local/share/crc-macos-1.14.0-amd64/:$PATH"
+[morgan.lupton@mycomputer:~]$ export PATH="/usr/local/share/crc-macos-1.14.0-amd64/:$PATH"
 ```
 
-Make sure to add this statement to your bash profile such that it persists after you exit out of the terminal. 
+5. Make sure to add this statement to your bash profile such that it persists after you exit out of the terminal. 
 
 ```
-[morgan.lupton@mycomputer:~/Downloads]$ export PATH="/usr/local/share/crc-macos-1.14.0-amd64/:$PATH"
+[morgan.lupton@mycomputer:~]$ vim ~/.bash_profile
 ```
+
+Simply add this line to the bottom of the file. 
+```
+...
+export PATH="/usr/local/share/crc-macos-1.14.0-amd64/:$PATH"
+```
+
+6. Run the `crc setup` command. You will be prompted for your password. 
+
+```
+[morgan.lupton@COMP10906:~]$ crc setup
+INFO Checking if oc binary is cached
+INFO Caching oc binary
+INFO Checking if podman remote binary is cached
+INFO Checking if goodhosts binary is cached
+INFO Caching goodhosts binary
+INFO Will use root access: change ownership of /Users/morgan.lupton/.crc/bin/goodhosts
+Password:
+INFO Will use root access: set suid for /Users/morgan.lupton/.crc/bin/goodhosts
+INFO Checking if CRC bundle is cached in '$HOME/.crc'
+INFO Unpacking bundle from the CRC binary
+INFO Checking minimum RAM requirements
+INFO Checking if running as non-root
+INFO Checking if HyperKit is installed
+INFO Setting up virtualization with HyperKit
+INFO Will use root access: change ownership of /Users/morgan.lupton/.crc/bin/hyperkit
+INFO Will use root access: set suid for /Users/morgan.lupton/.crc/bin/hyperkit
+INFO Checking if crc-driver-hyperkit is installed
+INFO Installing crc-machine-hyperkit
+INFO Will use root access: change ownership of /Users/morgan.lupton/.crc/bin/crc-driver-hyperkit
+INFO Will use root access: set suid for /Users/morgan.lupton/.crc/bin/crc-driver-hyperkit
+INFO Checking file permissions for /etc/hosts
+INFO Checking file permissions for /etc/resolver/testing
+Setup is complete, you can now run 'crc start' to start the OpenShift cluster
+```
+
+7. Run the `crc start` command. When prompted for a pull secret, copy and paste the pull secret from the CodeReady Containers product page that you downloaded the tarball from in step 2. 
+
+```
+[morgan.lupton@COMP10906:~]$ crc start
+WARN A new version (1.15.0) has been published on https://cloud.redhat.com/openshift/install/crc/installer-provisioned
+INFO Checking if oc binary is cached
+INFO Checking if podman remote binary is cached
+INFO Checking if goodhosts binary is cached
+INFO Checking minimum RAM requirements
+INFO Checking if running as non-root
+INFO Checking if HyperKit is installed
+INFO Checking if crc-driver-hyperkit is installed
+INFO Checking file permissions for /etc/hosts
+INFO Checking file permissions for /etc/resolver/testing
+? Image pull secret [? for help]
+```
+
+Once copy-pasted it will take 5-10 minutes to install. It's a 9.9GB file so be patient!
+
+```
+INFO Extracting bundle: crc_hyperkit_4.5.4.crcbundle ... ******************************************crc.qcow2: 1.14 GiB / 9.90 GiB [------>____________________________________________________] 11.52
+```
+
+You'll know the install is done when you see the following messages. You may see a WARN statement, but feel free to ignore it. 
+
+```
+INFO Checking if oc binary is cached
+INFO Checking if podman remote binary is cached
+INFO Checking if goodhosts binary is cached
+INFO Checking minimum RAM requirements
+INFO Checking if running as non-root
+INFO Checking if HyperKit is installed
+INFO Checking if crc-driver-hyperkit is installed
+INFO Checking file permissions for /etc/hosts
+INFO Checking file permissions for /etc/resolver/testing
+INFO A CodeReady Containers VM for OpenShift 4.5.4 is already running
+Started the OpenShift cluster
+WARN The cluster might report a degraded or error state. This is expected since several operators have been disabled to lower the resource usage. For more information, please consult the documentation
+
+```
+
+
+8. Validate the install completed correctly by running `crc setup`. 
