@@ -68,15 +68,9 @@ Setup is complete, you can now run 'crc start' to start the OpenShift cluster
 
 7. Run the `crc start` command. When prompted for a pull secret, copy and paste the pull secret from the CodeReady Containers product page that you downloaded the tarball from in step 2. 
 
-<div class="panel panel-warning">
-**Important Note**
-{: .panel-heading}
-<div class="panel-body">
+>**Important Note**
+>VirtualBox must be installed for crc to run properly. If crc is not natively using VirtualBox as its driver, you can configure that by appending the `--driver=virtualbox` flag to the `crc start` command. 
 
-VirtualBox must be installed for crc to run properly. If crc is not natively using VirtualBox as its driver, you can configure that by appending the `--driver=virtualbox` flag to the `crc start` command. 
-
-</div>
-</div>
 
 
 ```
