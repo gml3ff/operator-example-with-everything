@@ -131,7 +131,7 @@ Cache Usage:     13.1GB
 Cache Directory: /Users/morgan.lupton/.crc/cache
 ```
 
-### Troubleshooting `crc`
+#### Troubleshooting `crc`
 
 If `crc start` fails for whatever reason. I've found these steps to work almost every time. 
 
@@ -146,6 +146,6 @@ If `crc start` fails for whatever reason. I've found these steps to work almost 
 3. Re-run `crc setup` followed by `crc start`
 
 
-### Install and Configure the Datadog Operator
+### Install the Datadog Operator from the Operator Marketplace
 
-
+1. Once your cluster is up and running, run `crc console` and a page should automatically open in your browser that will take you to the OpenShift Management Console
