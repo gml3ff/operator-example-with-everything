@@ -112,8 +112,15 @@ WARN The cluster might report a degraded or error state. This is expected since 
 
 ```
 
+8. Take note of the `kubeadmin` password that is output. **You will need this later!** You should see a message that looks like the following in the logs: 
 
-8. Validate the install completed correctly by running `crc status`.
+```
+...
+INFO To login as an admin, run 'oc login -u kubeadmin -p <KUBE-ADMIN-PASSWORD> https://api.crc.testing:6443'
+...
+```
+
+9. Validate the install completed correctly by running `crc status`.
 
 ```
 [morgan.lupton@COMP10906:~]$ crc status
@@ -127,4 +134,18 @@ Cache Directory: /Users/morgan.lupton/.crc/cache
 ### Troubleshooting `crc`
 
 If `crc start` fails for whatever reason. I've found these steps to work almost every time. 
+
+1. Delete the `~/.crc` directory and all its contents
+
+```
+[morgan.lupton@COMP10906:~]$ rm -r ~/.crc
+```
+
+2. Restart your computer
+
+3. Re-run `crc setup` followed by `crc start`
+
+
+### Install and Configure the Datadog Operator
+
 
