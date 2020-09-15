@@ -115,4 +115,16 @@ WARN The cluster might report a degraded or error state. This is expected since 
 
 8. Validate the install completed correctly by running `crc status`.
 
+```
+[morgan.lupton@COMP10906:~]$ crc status
+CRC VM:          Running
+OpenShift:       Running (v4.5.4)
+Disk Usage:      13.09GB of 32.72GB (Inside the CRC VM)
+Cache Usage:     13.1GB
+Cache Directory: /Users/morgan.lupton/.crc/cache
+```
+
+### Troubleshooting `crc`
+
+If `crc start` fails for whatever reason. I've found these steps to work almost every time. 
 
