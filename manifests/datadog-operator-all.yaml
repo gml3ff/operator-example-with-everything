@@ -4,53 +4,37 @@ metadata:
   name: datadog
 spec:
   credentials:
-    apiKey: "<INSERT-API-KEY-HERE>"
-    appKey: "<INSERT-APP-KEY-HERE>"
+    apiKey: "<YOUR-API-KEY>"
+    appKey: "<YOUR-APP-KEY>"
   agent:
-    image: 
-      name: "datadog/agent:latest"
-    config:
-      leaderElection: true
-      collectEvents: true
-      criSocket:
-        criSocketPath: /var/run/crio/crio.sock
-        useCriSocketVolume: true
-      env:
+    env:
       - name: DD_KUBELET_TLS_VERIFY
         value: "false"
-      - name: DD_EXTRA_CONFIG_PROVIDERS
-        value: "endpointschecks clusterchecks"
-      tolerations:
-        - operator: Exists
+      - name: DD_DOGSTATSD_TAG_CARDINALITY
+        value: "high"
+    image: 
+      name: "datadog/agent:latest"
+    apm:
+      enabled: true
+    process:
+      enabled: true
     log:
       enabled: true
       logsConfigContainerCollectAll: true
-    apm:
-      enabled: true
-      hostPort: 8126
-    process:
-      enabled: true
-    systemProbe:
-      enabled: true
-      bpfDebugEnabled: true
     security:
       compliance:
         enabled: true
       runtime:
         enabled: false
+    systemProbe:
+      enabled: true
+      bpfDebugEnabled: true
   clusterAgent:
     image: 
       name: "datadog/cluster-agent:latest"
     config:
-      env:
-      - name: DD_EXTRA_CONFIG_PROVIDERS
-        value: "kube_endpoints kube_services" 
       clusterChecksEnabled: true
       externalMetrics:
         enabled: true
-        port: 5010
-      clusterChecksRunnerEnabled: true
-    replicas: 2
-  clusterChecksRunner:
-    image: 
-      name: "datadog/agent:latest"
+      admissionController:
+        enabled: true

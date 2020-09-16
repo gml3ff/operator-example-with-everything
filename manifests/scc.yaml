@@ -41,6 +41,7 @@ allowedCapabilities:
 - SYS_PTRACE
 - NET_ADMIN
 - IPC_LOCK
+- NET_BROADCAST
 #
 # The rest is copied from restricted SCC
 #

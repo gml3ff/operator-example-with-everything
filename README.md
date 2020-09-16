@@ -250,3 +250,54 @@ spec:
 ```
 [morgan.lupton@COMP10906:/PATH/TO/manifests]$ oc apply -f datadog-agent-all.yaml
 ```
+
+6. Validate everything is deployed by running the following command. It may take a few minutes for the cluster agent and Datadog Agent to come online. 
+
+```
+[morgan.lupton@COMP10906:~]$ oc get pods
+NAME                                     READY   STATUS    RESTARTS   AGE
+datadog-agent-24bnc                      4/4     Running   0          110s
+datadog-cluster-agent-6cd6d5c596-ptf95   1/1     Running   0          2m1s
+```
+
+### Collect Control Plane Metrics & Enable Further Integrations
+
+1. Add annotations to the Operator's API server to collect Kube API Server metrics.
+
+Edit the annotations by first running this command
+```
+[morgan.lupton@COMP10906:~]$ oc edit service metrics -n openshift-apiserver-operator
+
+```
+
+Then add the annotations 
+```
+...
+  annotations:
+    ad.datadoghq.com/endpoints.check_names: '["kube_apiserver_metrics"]'
+    ad.datadoghq.com/endpoints.init_configs: '[{}]'
+    ad.datadoghq.com/endpoints.instances: '[{ "prometheus_url": "https://%%host%%:%%port%%/metrics",
+      "bearer_token_auth": "true" }]'
+...
+```
+
+2. Do the same thing for the Operator's Kube API server.
+
+Edit the annotations by running this command
+```
+[morgan.lupton@COMP10906:~]$ oc edit service metrics -n openshift-kube-apiserver-operator
+```
+
+Then add the annotations
+```
+...
+  annotations:
+    ad.datadoghq.com/endpoints.check_names: '["kube_apiserver_metrics"]'
+    ad.datadoghq.com/endpoints.init_configs: '[{}]'
+    ad.datadoghq.com/endpoints.instances: '[{ "prometheus_url": "https://%%host%%:%%port%%/metrics",
+      "bearer_token_auth": "true" }]'
+...
+```
+
+3. Validate that the Kube API Server metrics are flowing in by either running the `agent status` comamnd, or checking for the metrics in Metrics Explorer. 
+
