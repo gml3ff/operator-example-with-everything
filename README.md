@@ -5,7 +5,12 @@ This guide explains the installation process behind configuring every possible K
 Inspiration came from [Ryan Hennessy's guide that you can find here](https://github.com/ryhennessy/datadog-operator-openshift-example). 
 
 ## Table of Contents
-* [Configuring `crc` to work on your local machine](###-Configuring-`crc`-to-work-on-your-local-machine)
+* [Configuring `crc` to work on your local machine](#configuring-crc-to-work-on-your-local-machine)
+  * [Troubleshooting `crc`](#troubleshooting-crc)
+* [Install the Datadog Operator from the Operator Marketplace](#install-the-datadog-operator-from-the-operator-marketplace)
+* [Install Kube State Metrics](#install-kube-state-metrics)
+* [Create Datadog Project & Apply Customized Manifest](#create-datadog-project--apply-customized-manifest)
+* [Collect Control Plane Metrics & Enable Further Integrations](#collect-control-plane-metrics--enable-further-integrations)
 
 
 ### Configuring `crc` to work on your local machine
