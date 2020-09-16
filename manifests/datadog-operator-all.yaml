@@ -1,0 +1,56 @@
+apiVersion: datadoghq.com/v1alpha1
+kind: DatadogAgent
+metadata:
+  name: datadog
+spec:
+  credentials:
+    apiKey: "<INSERT-API-KEY-HERE>"
+    appKey: "<INSERT-APP-KEY-HERE>"
+  agent:
+    image: 
+      name: "datadog/agent:latest"
+    config:
+      leaderElection: true
+      collectEvents: true
+      criSocket:
+        criSocketPath: /var/run/crio/crio.sock
+        useCriSocketVolume: true
+      env:
+      - name: DD_KUBELET_TLS_VERIFY
+        value: "false"
+      - name: DD_EXTRA_CONFIG_PROVIDERS
+        value: "endpointschecks clusterchecks"
+      tolerations:
+        - operator: Exists
+    log:
+      enabled: true
+      logsConfigContainerCollectAll: true
+    apm:
+      enabled: true
+      hostPort: 8126
+    process:
+      enabled: true
+    systemProbe:
+      enabled: true
+      bpfDebugEnabled: true
+    security:
+      compliance:
+        enabled: true
+      runtime:
+        enabled: false
+  clusterAgent:
+    image: 
+      name: "datadog/cluster-agent:latest"
+    config:
+      env:
+      - name: DD_EXTRA_CONFIG_PROVIDERS
+        value: "kube_endpoints kube_services" 
+      clusterChecksEnabled: true
+      externalMetrics:
+        enabled: true
+        port: 5010
+      clusterChecksRunnerEnabled: true
+    replicas: 2
+  clusterChecksRunner:
+    image: 
+      name: "datadog/agent:latest"
