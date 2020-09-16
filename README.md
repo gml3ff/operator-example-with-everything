@@ -155,3 +155,13 @@ If `crc start` fails for whatever reason. I've found these steps to work almost 
 ![Login Page](images/login_page.png)
 
 ![Login Page 2](images/login_page_2.png)
+
+3. Navigate to the OperatorHub by using the left panel. Go to `Operators > OperatorHub`.
+
+4. Search for "Datadog" and select the first result. Make sure you don't select the Community Operator.
+
+![Operator Page 1](images/operator_page_1.png)
+
+5. Install the Datadog Operator in all namespaces. 
+
+![Operator Page 2](images/operator_page_2.png)) 
