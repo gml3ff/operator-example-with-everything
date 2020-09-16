@@ -154,4 +154,4 @@ If `crc start` fails for whatever reason. I've found these steps to work almost 
 
 ![Login Page](images/login_page.png)
 
-![Login Page 2](images/login_page_2.png))
+![Login Page 2](images/login_page_2.png)
