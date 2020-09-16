@@ -153,3 +153,5 @@ If `crc start` fails for whatever reason. I've found these steps to work almost 
 2. Once at the login page, login with the user `kubeadmin` using the password that was automatically generated when you first ran `crc start`. If you have to blow the cluster away and restart from scratch; don't worry, this password remains the same even if you completely delete it locally. 
 
 ![Login Page](images/login_page.png)
+
+![Login Page 2](images/login_page_2.png))
