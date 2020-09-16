@@ -149,3 +149,7 @@ If `crc start` fails for whatever reason. I've found these steps to work almost 
 ### Install the Datadog Operator from the Operator Marketplace
 
 1. Once your cluster is up and running, run `crc console` and a page should automatically open in your browser that will take you to the OpenShift Management Console
+
+2. Once at the login page, login with the user `kubeadmin` using the password that was automatically generated when you first ran `crc start`. If you have to blow the cluster away and restart from scratch; don't worry, this password remains the same even if you completely delete it locally. 
+
+![Login Page](images/login_page.png)
