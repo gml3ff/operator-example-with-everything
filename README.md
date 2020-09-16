@@ -1,9 +1,12 @@
 # operator-example-with-everything
-## Datadog Operator Example that Includes Kubernetes, Docker, Logs, Process, NPM, APM, Control Plane, and OpenShift Metrics
 
-This guide explains the installation process behind configuring every possible integration you may want to configure with the Operator. Included in this repository are instructions on how to deploy a local OpenShift cluster (v4+) as well as configure the Datadog agent along with all relevant integrations. 
+This guide explains the installation process behind configuring every possible Kubernetes control plane integration and Datadog product (i.e. NPM, APM, Logs, Processes) you may want to configure with the Operator. Included in this repository are instructions on how to deploy a local OpenShift cluster (v4+) as well as configure the Datadog agent along with all relevant integrations. 
 
 Inspiration came from [Ryan Hennessy's guide that you can find here](https://github.com/ryhennessy/datadog-operator-openshift-example). 
+
+## Table of Contents
+* [Configuring `crc` to work on your local machine](###-Configuring-`crc`-to-work-on-your-local-machine)
+
 
 ### Configuring `crc` to work on your local machine
 
