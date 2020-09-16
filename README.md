@@ -235,3 +235,18 @@ kube-system                                  kube-state-metrics-5c5cb55b4-vgw5d 
 [morgan.lupton@COMP10906:~]$ cd /PATH/TO/operator-example-with-everything/manifests
 [morgan.lupton@COMP10906:/PATH/TO/manifests]$ oc apply -f scc.yaml
 ```
+
+4. Modify the Datadog Operator manifest (`~/manifests/datadog-agent-all.yaml`) so that it includes your Datadog API & App Keys. The section will look like this:
+
+```
+spec:
+  credentials:
+    apiKey: "<INSERT-API-KEY-HERE>"
+    appKey: "<INSERT-APP-KEY-HERE>"
+```
+
+5. Apply the Datadog Operator manifest to your cluster. 
+
+```
+[morgan.lupton@COMP10906:/PATH/TO/manifests]$ oc apply -f datadog-agent-all.yaml
+```
