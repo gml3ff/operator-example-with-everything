@@ -11,7 +11,7 @@ Inspiration came from [Ryan Hennessy's guide that you can find here](https://git
 * [Install Kube State Metrics](#install-kube-state-metrics)
 * [Create Datadog Project & Apply Customized Manifest](#create-datadog-project--apply-customized-manifest)
 * [Collect Control Plane Metrics & Enable Further Integrations](#collect-control-plane-metrics--enable-further-integrations)
-
+  * [Kube API Server Metrics](#kube-api-server-metrics)
 
 ### Configuring `crc` to work on your local machine
 
@@ -270,6 +270,8 @@ datadog-cluster-agent-6cd6d5c596-ptf95   1/1     Running   0          2m1s
 
 ### Collect Control Plane Metrics & Enable Further Integrations
 
+#### Kube API Server Metrics
+
 1. Add annotations to the Operator's API server to collect Kube API Server metrics.
 
 Edit the annotations by first running this command
@@ -309,3 +311,10 @@ Then add the annotations
 
 3. Validate that the Kube API Server metrics are flowing in by either running the `agent status` comamnd, or checking for the metrics in Metrics Explorer. 
 
+![Kube API Server](images/kube_apiserver.png)
+
+#### OpenShift Metrics
+
+You must have ClusterQuotas enabled in order to get any "OpenShift" metrics flowing into your account. This integration is also reliant on the Kube API Server integration which you just configured. 
+
+1. 
