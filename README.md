@@ -142,7 +142,7 @@ Cache Directory: /Users/morgan.lupton/.crc/cache
 10. Finally configure the `oc-env` by running the following command. Without this, you will not be able to run `oc` commands against your cluster. 
 
 ```
-[morgan.lupton@COMP10906:~]$ ]eval $(crc oc-env)
+[morgan.lupton@COMP10906:~]$ eval $(crc oc-env)
 ```
 
 #### Troubleshooting `crc`
