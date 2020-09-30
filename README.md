@@ -355,9 +355,9 @@ Login successful.
 
 
 
-
-#### Sections below are incomplete or in-progress.
-~~#### CoreDNS
+----------------------
+### INCOMPLETE SECTIONS (THESE CHANGES DO NOT WORK)
+#### CoreDNS
 
 1. Apply the following annotations to the CoreDNS service in your OpenShift cluster.
 
@@ -391,4 +391,3 @@ annotations:
   ad.datadoghq.com/endpoints.instances: '[ {"prometheus_url":"http://%%host%%:2379/metrics", "tags":["dns-pod:%%host%%"]} ]'
 ...
 ```
-~~
