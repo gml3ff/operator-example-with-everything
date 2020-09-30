@@ -7,11 +7,19 @@ spec:
     apiKey: "<YOUR-API-KEY>"
     appKey: "<YOUR-APP-KEY>"
   agent:
+    config:
+      leaderElection: true
+      collectEvents: true
+      criSocket:
+        criSocketPath: /var/run/crio/crio.sock
+        useCriSocketVolume: true
     env:
       - name: DD_KUBELET_TLS_VERIFY
         value: "false"
       - name: DD_DOGSTATSD_TAG_CARDINALITY
-        value: "high"
+        value: "orchestrator"
+      - name: DD_EXTRA_CONFIG_PROVIDERS
+        value: "endpointschecks clusterchecks"
     image: 
       name: "datadog/agent:latest"
     apm:
@@ -33,6 +41,13 @@ spec:
     image: 
       name: "datadog/cluster-agent:latest"
     config:
+      env:
+      - name: DD_EXTRA_CONFIG_PROVIDERS
+        value: "kube_endpoints kube_services"
+      - name: DD_COLLECT_KUBERNETES_EVENTS
+        value: "true"
+      - name: DD_LEADER_ELECTION
+        value: "true"
       clusterChecksEnabled: true
       externalMetrics:
         enabled: true

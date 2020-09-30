@@ -12,6 +12,7 @@ Inspiration came from [Ryan Hennessy's guide that you can find here](https://git
 * [Create Datadog Project & Apply Customized Manifest](#create-datadog-project--apply-customized-manifest)
 * [Collect Control Plane Metrics & Enable Further Integrations](#collect-control-plane-metrics--enable-further-integrations)
   * [Kube API Server Metrics](#kube-api-server-metrics)
+  * [OpenShift Metrics](#openshift-metrics)
 
 ### Configuring `crc` to work on your local machine
 
@@ -317,4 +318,77 @@ Then add the annotations
 
 You must have ClusterQuotas enabled in order to get any "OpenShift" metrics flowing into your account. This integration is also reliant on the Kube API Server integration which you just configured. 
 
-1. 
+1. Configure cluster quotas for the default `developer` user (you can't configure quotas for `kubeadmin`).
+
+```
+[morgan.lupton@COMP10906:~]$ oc create clusterquota for-user \
+     --project-annotation-selector openshift.io/requester=developer \
+     --hard pods=5 \
+     --hard secrets=10
+```
+
+2. Login as the `developer` user. Password should be `developer` as well. 
+
+```
+[morgan.lupton@COMP10906:~]$ oc login
+Authentication required for https://api.crc.testing:6443 (openshift)
+Username: developer
+Password:
+Login successful.
+```
+
+3. Create a new project. 
+
+```
+[morgan.lupton@COMP10906:~]$ oc new-project my-project
+```
+
+4. Apply the example nginx deployment in the deployment manifest. 
+
+```
+[morgan.lupton@COMP10906:~]$ oc apply -f sample-nginx-deployment.yaml
+```
+
+5. Validate that you are now collecting OpenShift metrics by running the `agent status` command or checking the Datadog console. 
+
+![OpenShift Metrics](images/openshift_metrics.png)
+
+
+
+
+#### Sections below are incomplete or in-progress.
+~~#### CoreDNS
+
+1. Apply the following annotations to the CoreDNS service in your OpenShift cluster.
+
+
+```
+[morgan.lupton@COMP10906:~]$ oc edit services metrics -n openshift-dns-operator
+```
+
+```
+...
+annotations:
+  ad.datadoghq.com/endpoints.check_names: '["coredns"]'
+  ad.datadoghq.com/endpoints.init_configs: '[{}]'
+  ad.datadoghq.com/endpoints.instances: '[{"prometheus_url":"http://%%host%%:9153/metrics", "tags":["dns-pod:%%host%%"]}]'
+...
+```
+
+#### etcd
+
+1. Apply the following annotations to the etcd service in your OpenShift cluster.
+
+```
+[morgan.lupton@COMP10906:~$ oc edit services metrics -n openshift-etcd-operator]
+```
+
+```
+...
+annotations:
+  ad.datadoghq.com/endpoints.check_names: '["etcd"]'
+  ad.datadoghq.com/endpoints.init_configs: '[{}]'
+  ad.datadoghq.com/endpoints.instances: '[ {"prometheus_url":"http://%%host%%:2379/metrics", "tags":["dns-pod:%%host%%"]} ]'
+...
+```
+~~
