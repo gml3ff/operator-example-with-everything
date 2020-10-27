@@ -13,6 +13,10 @@ Inspiration came from [Ryan Hennessy's guide that you can find here](https://git
 * [Collect Control Plane Metrics & Enable Further Integrations](#collect-control-plane-metrics--enable-further-integrations)
   * [Kube API Server Metrics](#kube-api-server-metrics)
   * [OpenShift Metrics](#openshift-metrics)
+  * [CoreDNS](#coredns)
+  * [etcd](#etcd)
+  * [Kube Controller Manager](#kube-controller-manager)
+  * [Kube Scheduler](#kube-scheduler)
 
 ### Configuring `crc` to work on your local machine
 
