@@ -354,9 +354,6 @@ Login successful.
 ![OpenShift Metrics](images/openshift_metrics.png)
 
 
-
-----------------------
-### INCOMPLETE SECTIONS (THESE CHANGES DO NOT WORK)
 #### CoreDNS
 
 1. Apply the following annotations to the CoreDNS service in your OpenShift cluster.
@@ -371,7 +368,8 @@ Login successful.
 annotations:
   ad.datadoghq.com/endpoints.check_names: '["coredns"]'
   ad.datadoghq.com/endpoints.init_configs: '[{}]'
-  ad.datadoghq.com/endpoints.instances: '[{"prometheus_url":"http://%%host%%:9153/metrics", "tags":["dns-pod:%%host%%"]}]'
+  ad.datadoghq.com/endpoints.instances: '[{"prometheus_url":"https://dns-default.openshift-dns:9154/metrics",
+    "ssl_verify":"false","bearer_token_auth":"true", "tags":["dns-pod:%%host%%"]}]'
 ...
 ```
 
@@ -380,7 +378,7 @@ annotations:
 1. Apply the following annotations to the etcd service in your OpenShift cluster.
 
 ```
-[morgan.lupton@COMP10906:~$ oc edit services metrics -n openshift-etcd-operator]
+[morgan.lupton@COMP10906:~]$ oc edit services metrics -n openshift-etcd-operator]
 ```
 
 ```
@@ -388,6 +386,43 @@ annotations:
 annotations:
   ad.datadoghq.com/endpoints.check_names: '["etcd"]'
   ad.datadoghq.com/endpoints.init_configs: '[{}]'
-  ad.datadoghq.com/endpoints.instances: '[ {"prometheus_url":"http://%%host%%:2379/metrics", "tags":["dns-pod:%%host%%"]} ]'
+  ad.datadoghq.com/endpoints.instances: '[ {"prometheus_url":"https://metrics.openshift-etcd-operator/metrics",
+    "ssl_verify":"false", "bearer_token_auth":"true","use_preview":"true"} ]'
+...
+```
+
+#### Kube Controller Manager
+
+1. Apply the following annotations to the Kube Controller Manager service in your OpenShift cluster. 
+
+```
+[morgan.lupton@COMP10906:~]$ oc edit services metrics -n openshift-kube-controller-manager-operator
+```
+
+```
+...
+annotations:
+  ad.datadoghq.com/endpoints.check_names: '["kube_controller_manager"]'
+  ad.datadoghq.com/endpoints.init_configs: '[{}]'
+  ad.datadoghq.com/endpoints.instances: '[ {"prometheus_url":"https://kube-controller-manager.openshift-kube-controller-manager/metrics",
+    "ssl_verify":"false", "bearer_token_auth":"true","leader_election":"false"} ]'
+...
+```
+
+#### Kube Scheduler
+
+1. Apply the following annotations to the Kube Scheduler service in your OpenShift cluster.
+
+```
+[morgan.lupton@COMP10906:~]$ oc edit services metrics -n openshift-kube-scheduler-operator
+```
+
+```
+...
+annotations:
+  ad.datadoghq.com/endpoints.check_names: '["kube_scheduler"]'
+  ad.datadoghq.com/endpoints.init_configs: '[{}]'
+  ad.datadoghq.com/endpoints.instances: '[ {"prometheus_url":"https://scheduler.openshift-kube-scheduler/metrics",
+    "ssl_verify":"false", "bearer_token_auth":"true"} ]'
 ...
 ```

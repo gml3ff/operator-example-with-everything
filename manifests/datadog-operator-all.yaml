@@ -4,8 +4,8 @@ metadata:
   name: datadog
 spec:
   credentials:
-    apiKey: "<YOUR-API-KEY>"
-    appKey: "<YOUR-APP-KEY>"
+    apiKey: "<YOUR-API-KEY-HERE>"
+    appKey: "<YOUR-APP-KEY-HERE>"
   agent:
     config:
       leaderElection: true
