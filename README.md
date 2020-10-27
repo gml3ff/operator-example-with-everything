@@ -324,7 +324,7 @@ You must have ClusterQuotas enabled in order to get any "OpenShift" metrics flow
 
 1. Configure cluster quotas for the default `developer` user (you can't configure quotas for `kubeadmin`).
 
-```
+```console
 [morgan.lupton@COMP10906:~]$ oc create clusterquota for-user \
      --project-annotation-selector openshift.io/requester=developer \
      --hard pods=5 \
@@ -333,7 +333,7 @@ You must have ClusterQuotas enabled in order to get any "OpenShift" metrics flow
 
 2. Login as the `developer` user. Password should be `developer` as well. 
 
-```
+```console
 [morgan.lupton@COMP10906:~]$ oc login
 Authentication required for https://api.crc.testing:6443 (openshift)
 Username: developer
@@ -343,13 +343,13 @@ Login successful.
 
 3. Create a new project. 
 
-```
+```console
 [morgan.lupton@COMP10906:~]$ oc new-project my-project
 ```
 
 4. Apply the example nginx deployment in the deployment manifest. 
 
-```
+```console
 [morgan.lupton@COMP10906:~]$ oc apply -f sample-nginx-deployment.yaml
 ```
 
@@ -363,11 +363,11 @@ Login successful.
 1. Apply the following annotations to the CoreDNS service in your OpenShift cluster.
 
 
-```
+```console
 [morgan.lupton@COMP10906:~]$ oc edit services metrics -n openshift-dns-operator
 ```
 
-```
+```YAML
 ...
 annotations:
   ad.datadoghq.com/endpoints.check_names: '["coredns"]'
@@ -381,11 +381,11 @@ annotations:
 
 1. Apply the following annotations to the etcd service in your OpenShift cluster.
 
-```
+```console
 [morgan.lupton@COMP10906:~]$ oc edit services metrics -n openshift-etcd-operator]
 ```
 
-```
+```YAML
 ...
 annotations:
   ad.datadoghq.com/endpoints.check_names: '["etcd"]'
@@ -399,11 +399,11 @@ annotations:
 
 1. Apply the following annotations to the Kube Controller Manager service in your OpenShift cluster. 
 
-```
+```console
 [morgan.lupton@COMP10906:~]$ oc edit services metrics -n openshift-kube-controller-manager-operator
 ```
 
-```
+```YAML
 ...
 annotations:
   ad.datadoghq.com/endpoints.check_names: '["kube_controller_manager"]'
@@ -417,11 +417,11 @@ annotations:
 
 1. Apply the following annotations to the Kube Scheduler service in your OpenShift cluster.
 
-```
+```console
 [morgan.lupton@COMP10906:~]$ oc edit services metrics -n openshift-kube-scheduler-operator
 ```
 
-```
+```YAML
 ...
 annotations:
   ad.datadoghq.com/endpoints.check_names: '["kube_scheduler"]'
